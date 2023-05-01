@@ -40,7 +40,7 @@ class _WebViewPageState extends State<WebViewPage> {
     return Scaffold(
       backgroundColor: Colors.green,
       appBar: AppBar(
-        title: const Text('Islamic Center'),
+        title: const Text('Islamic Center Kaltim'),
         actions: const [],
       ),
       body: WebViewWidget(controller: _controller),
