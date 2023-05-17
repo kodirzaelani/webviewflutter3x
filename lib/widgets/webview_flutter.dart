@@ -41,9 +41,87 @@ class _WebViewPageState extends State<WebViewPage> {
       backgroundColor: Colors.green,
       appBar: AppBar(
         title: const Text('Islamic Center Kaltim'),
-        actions: const [],
+        actions: <Widget>[
+          NavigationControls(webViewController: _controller),
+        ],
       ),
       body: WebViewWidget(controller: _controller),
+    );
+  }
+
+  Widget favoriteButton() {
+    return FloatingActionButton(
+      onPressed: () async {
+        final String? url = await _controller.currentUrl();
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Favorited $url')),
+          );
+        }
+      },
+      child: const Icon(Icons.favorite),
+    );
+  }
+}
+
+enum MenuOptions {
+  showUserAgent,
+  listCookies,
+  clearCookies,
+  addToCache,
+  listCache,
+  clearCache,
+  navigationDelegate,
+  doPostRequest,
+  loadLocalFile,
+  loadFlutterAsset,
+  loadHtmlString,
+  transparentBackground,
+  setCookie,
+}
+
+class NavigationControls extends StatelessWidget {
+  const NavigationControls({super.key, required this.webViewController});
+
+  final WebViewController webViewController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () async {
+            if (await webViewController.canGoBack()) {
+              await webViewController.goBack();
+            } else {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('No back history item')),
+                );
+              }
+            }
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.arrow_forward_ios),
+          onPressed: () async {
+            if (await webViewController.canGoForward()) {
+              await webViewController.goForward();
+            } else {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('No forward history item')),
+                );
+              }
+            }
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.replay),
+          onPressed: () => webViewController.reload(),
+        ),
+      ],
     );
   }
 }
