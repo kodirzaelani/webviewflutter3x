@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewPage extends StatefulWidget {
-  const WebViewPage({super.key});
+class WWebViewPage extends StatefulWidget {
+  const WWebViewPage({super.key});
 
   @override
-  State<WebViewPage> createState() => _WebViewPageState();
+  State<WWebViewPage> createState() => _WWebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage> {
+class _WWebViewPageState extends State<WWebViewPage> {
   DateTime timeBackPressed = DateTime.now();
   late WebViewController _controller;
   @override
@@ -59,7 +59,6 @@ class _WebViewPageState extends State<WebViewPage> {
         appBar: AppBar(
           // menonaktfikan tombol back
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.green,
           title: const Text('Islamic Center'),
           actions: <Widget>[
             NavigationControls(webViewController: _controller),
